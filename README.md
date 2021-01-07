@@ -1,8 +1,10 @@
-# shopify-image-repository
+# Shopify Image Repo
 
-## Project setup
+
+___
+## Project setup for Frontend
 ```
-npm install
+cd frontend && npm install
 ```
 
 ### Compiles and hot-reloads for development
@@ -10,15 +12,13 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+___
+## Project setup for Backend
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+cd backend && npm install
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Runs backend
+```
+npm start
+```

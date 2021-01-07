@@ -1,5 +1,5 @@
 # Shopify Image Repo
-
+Welcome to the Shopify Image Repository! You will easily be able to upload delete and search through your images with this repository.
 
 ___
 ## Project setup for Frontend

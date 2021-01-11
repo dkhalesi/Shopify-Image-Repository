@@ -5,8 +5,8 @@ const bcrypt = require('bcryptjs');
 async function createAccount(username, password, name) {
 
     // Hash password before saving to db
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    let user = new User({ username, hashedPassword, name });
+    password = bcrypt.hashSync(password, 10);
+    let user = new User({ username, password, name });
 
     return user.save();
 

@@ -1,29 +1,49 @@
 <template>
-  <div>
-    <h2>Login</h2>
-    <form>
-      <input
-        type="text"
-        name="username"
-        id="username"
-        v-model="userData.username"
-        placeholder="Username"
-      /><br />
-      <input
-        type="password"
-        name="password"
-        id="password"
-        v-model="userData.password"
-        placeholder="Password"
-      /><br />
-      <button type="button" v-on:click="login(userData)">Login</button>
-    </form>
-    <nav>
-      Don't have an account?
-      <router-link to="/SignUp">Sign Up!</router-link>
-    </nav>
-  </div>
+  <v-app>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="#96bf48">
+                <v-toolbar-title>Login</v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                  <v-text-field
+                    prepend-icon="person"
+                    name="username"
+                    label="Username"
+                    type="text"
+                    v-model="userData.username"
+                  ></v-text-field>
+                  <v-text-field
+                    prepend-icon="lock"
+                    name="password"
+                    label="Password"
+                    type="password"
+                    v-model="userData.password"
+                  ></v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-text>
+                Don't have an account?
+                <router-link to="/SignUp">Sign Up!</router-link>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="#96bf48" v-on:click="login(userData)"
+                  >Login</v-btn
+                >
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
+
 
 <script>
 import { handleLogin } from "../scripts/login.js";

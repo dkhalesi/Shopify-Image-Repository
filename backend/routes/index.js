@@ -12,7 +12,7 @@ router.post('/login', async function (req, res, next) {
   await mongo.login(req.body.username, req.body.password)
     .then((value) => {
       //if document exists for requested username
-      res.send(value);
+      res.send({ name: value.name, images: value.images });
     })
     .catch((err) => {
       throw err;

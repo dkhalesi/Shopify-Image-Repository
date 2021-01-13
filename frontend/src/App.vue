@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <router-view />
+    <UserContext />
   </div>
 </template>
 
 <script>
+import UserContext from "./components/UserContext.vue";
 export default {
   name: "App",
+  components: { UserContext },
 };
 </script>
 

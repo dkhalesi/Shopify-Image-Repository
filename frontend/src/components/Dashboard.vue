@@ -1,9 +1,9 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="dashboard">
     <v-app-bar app shrink-on-scroll>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>{{ nameOfUser }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -26,20 +26,19 @@
 <script>
 export default {
   name: "Dashboard",
-  data() {
-    return {
-      user: {
-        name: "",
-      },
-    };
-  },
-  methods: {
-    getUserData: function () {
-      console.log("made it");
+  props: {
+    nameOfUser: {
+      type: String,
+    },
+    images: {
+      type: Array,
     },
   },
   mounted() {
-    this.getUserData();
+    // check if user is authenticated before allowing access to dashboard
+    if (this.nameOfUser === "") {
+      this.$router.push("/");
+    }
   },
 };
 </script>

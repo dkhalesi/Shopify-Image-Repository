@@ -14,6 +14,7 @@ async function handleLogin(userData) {
         .then((response) => {
             if (response.data) {
                 store.state.isAuth = true;
+                this.$emit("send-auth", response.data)
                 this.$router.push("Dashboard");
                 //function to populate
             } else {

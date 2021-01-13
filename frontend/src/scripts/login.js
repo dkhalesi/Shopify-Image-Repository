@@ -1,3 +1,5 @@
+import store from "../main.js"
+
 const axios = require('axios');
 
 async function handleLogin(userData) {
@@ -11,10 +13,11 @@ async function handleLogin(userData) {
     axios.post(url, userData)
         .then((response) => {
             if (response.data) {
-                console.log("here is the reponse", response)
+                store.state.isAuth = true;
                 this.$router.push("Dashboard");
                 //function to populate
             } else {
+                store.state.isAuth = false;
                 alert("Wrong username or password. Please try again.")
             }
         })

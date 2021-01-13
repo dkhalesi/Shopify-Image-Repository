@@ -1,3 +1,5 @@
+import store from "../main.js"
+
 const axios = require('axios');
 
 async function handleSignUp(userData) {
@@ -16,8 +18,10 @@ async function handleSignUp(userData) {
     axios.post(url, userData)
         .then((response) => {
             if (response.data) {
+                store.state.isAuth = true;
                 this.$router.push("Dashboard");
             } else {
+                store.state.isAuth = false;
                 alert("Username seems to be taken. Please try a new username." + userData.username)
             }
         })

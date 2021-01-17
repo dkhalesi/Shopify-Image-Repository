@@ -1,15 +1,14 @@
 <template>
   <div id="app">
-    <div>
-      <img alt="Vue logo" src="./assets/logo.png" />
-    </div>
-    <router-view />
+    <UserContext />
   </div>
 </template>
 
 <script>
+import UserContext from "./components/UserContext.vue";
 export default {
   name: "App",
+  components: { UserContext },
 };
 </script>
 

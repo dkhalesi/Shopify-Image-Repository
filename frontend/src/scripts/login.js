@@ -11,7 +11,7 @@ async function handleLogin(userData) {
     axios.post(url, userData)
         .then((response) => {
             if (response.data) {
-                console.log("here is the reponse", response)
+                this.$emit("send-auth", response.data)
                 this.$router.push("Dashboard");
                 //function to populate
             } else {

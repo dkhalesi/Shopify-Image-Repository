@@ -6,22 +6,28 @@ import Dashboard from "@/components/Dashboard"
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
-      path: "/",
+      path: "*",
       name: "Login",
-      component: Login
+      component: Login,
     },
     {
       path: "/SignUp",
       name: "SignUp",
-      component: SignUp
+      component: SignUp,
     },
     {
       path: "/Dashboard",
       name: "Dashboard",
-      component: Dashboard
+      component: Dashboard,
+      meta: {
+        requiresAuth: true
+      },
+      props: true
     }
-  ]
+  ],
 })
+
+export default router

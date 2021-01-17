@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     images: {
         type: Array,
         required: [false, 'images is not required'],
+        default: []
     }
 })
 

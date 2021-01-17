@@ -1,5 +1,7 @@
 const express = require('express');
 const mongo = require('../database/user.js');
+const s3 = require('../imageStorage.js');
+const singleUpload = s3.upload.single("image");
 
 const router = express.Router();
 
@@ -12,7 +14,7 @@ router.post('/login', async function (req, res, next) {
   await mongo.login(req.body.username, req.body.password)
     .then((value) => {
       //if document exists for requested username
-      res.send({ name: value.name, images: value.images });
+      res.send({ username: value.username, name: value.name, images: value.images });
     })
     .catch((err) => {
       throw err;
@@ -20,18 +22,41 @@ router.post('/login', async function (req, res, next) {
 });
 
 router.post('/signUp', async function (req, res, next) {
-  await mongo.createAccount(req.body.username, req.body.password, req.body.name)
+  await mongo.signUp(req.body.username, req.body.password, req.body.name)
     .then((value) => {
       //if userSchema fields are correctly filled and username is unique
-      res.send(true);
+      res.send({ username: req.body.username, name: req.body.name, images: [] });
     })
     .catch((err) => {
       console.log(err)
       // we can end up in this catch block if values are not unique
       res.send(false);
     })
+});
 
+router.post('/upload', async function (req, res, next) {
+  singleUpload(req, res, async function (err) {
+    if (err) {
+      return res.json({
+        success: false,
+        errors: {
+          title: "Image Upload Error",
+          detail: err.message,
+          error: err,
+        },
+      });
+    }
+    await mongo.addImage(req.body.username, req.file.location)
+      .then((value) => {
+        //send update images 
+        console.log("value ", value)
+        res.send(value);
+      })
+      .catch((err) => {
+        throw err;
+      })
 
-})
+  })
+});
 
 module.exports = router;

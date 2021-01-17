@@ -16,7 +16,7 @@ async function handleSignUp(userData) {
     axios.post(url, userData)
         .then((response) => {
             if (response.data) {
-                this.$emit("send-auth", { name: userData.name, images: [] })
+                this.$emit("send-auth", { username: userData.username, name: userData.name, images: [] })
                 this.$router.push("Dashboard");
             } else {
                 alert("Username seems to be taken. Please try a new username." + userData.username)

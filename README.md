@@ -15,6 +15,3 @@ ___
 
 ## Link to try out!
 https://dina-search-photo.web.app/#/ 
-
-___
-## Demo

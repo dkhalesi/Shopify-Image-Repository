@@ -10,7 +10,7 @@
 
     <v-dialog v-model="uploadDialog" max-width="500px">
       <v-card>
-        <v-card-title> Select Picture </v-card-title>
+        <v-card-title> Select One Picture </v-card-title>
         <v-card-text>
           <v-file-input
             label="File input"

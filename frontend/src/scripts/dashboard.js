@@ -2,10 +2,10 @@ const axios = require('axios');
 const FormData = require('form-data');
 
 function handleViewAll() {
+    this.searchDialog = false
     this.charArr = [];
     this.viewAllBool = true;
     this.$forceUpdate();
-    console.log(this.charArr, this.viewAllBool)
 }
 
 function handleSearch() {
@@ -21,6 +21,7 @@ function handleSearch() {
             if (response.data && response.data.length > 0) {
                 this.charArr = response.data;
                 this.viewAllBool = false;
+                this.reversedImages = this.charArr.slice().reverse();
                 this.$forceUpdate();
             } else {
                 alert("No images with that characteristic exists.")
@@ -28,7 +29,7 @@ function handleSearch() {
         })
         .catch((error) => {
             alert("Oups... Error on our end. Unable to upload picture")
-            console.log(error);
+            console.error(error);
         });
 }
 
@@ -67,7 +68,7 @@ async function handleUpload() {
         })
         .catch((error) => {
             alert("Oups... Error on our end. Unable to upload picture")
-            console.log(error);
+            console.error(error);
         });
 }
 

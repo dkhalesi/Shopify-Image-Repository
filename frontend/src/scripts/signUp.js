@@ -24,7 +24,7 @@ async function handleSignUp(userData) {
         })
         .catch((error) => {
             alert("Oups... Error on our end. Unable to submit form.")
-            console.log(error);
+            console.error(error);
         });
 }
 

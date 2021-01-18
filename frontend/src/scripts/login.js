@@ -6,7 +6,8 @@ async function handleLogin(userData) {
         return;
     }
 
-    const url = "https://dina-search-photo.nn.r.appspot.com/login";
+    // const url = "https://dina-search-photo.nn.r.appspot.com/login";
+    const url = "http://localhost:3000/login";
 
     axios.post(url, userData)
         .then((response) => {
@@ -20,7 +21,7 @@ async function handleLogin(userData) {
         })
         .catch((error) => {
             alert("Oups... Error on our end. Unable to login.")
-            console.log(error);
+            console.error(error);
         });
 }
 

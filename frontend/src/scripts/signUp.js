@@ -11,7 +11,7 @@ async function handleSignUp(userData) {
         return;
     }
 
-    const url = "http://localhost:3000/signUp";
+    const url = "https://dina-search-photo.nn.r.appspot.com/signUp";
 
     axios.post(url, userData)
         .then((response) => {

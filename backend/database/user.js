@@ -1,6 +1,8 @@
 const User = require('./userSchema.js');
+const Image = require('./imageSchema.js');
 const connector = require('./connectToDatabase.js')
 const bcrypt = require('bcryptjs');
+const googleVision = require('../labelDetection.js')
 
 async function signUp(username, password, name) {
 
@@ -9,7 +11,6 @@ async function signUp(username, password, name) {
     let user = new User({ username, password, name });
 
     return user.save();
-
 }
 
 async function login(username, password) {
@@ -34,6 +35,13 @@ async function login(username, password) {
 }
 
 async function addImage(username, imageLink) {
+
+    const labels = await googleVision.imageLabels(imageLink);
+
+    let image = new Image({ image: imageLink, labels: labels, username: username });
+
+    image.save();
+
     return await User.findOne({ username: username })
         .then(async (doc) => {
             //if there are no documents with that username
@@ -51,4 +59,22 @@ async function addImage(username, imageLink) {
 
 }
 
-module.exports = { signUp, login, addImage };
+async function searchLabel(username, characteristic) {
+    const lowerCaseChar = characteristic.toLowerCase();
+    return await Image.find({ labels: lowerCaseChar, username: username }).then(async (docs) => {
+        //if there are no documents with that username
+        if (docs === null) {
+            return null;
+        }
+
+        const validArrs = [];
+        docs.forEach(doc => validArrs.push(doc.image));
+        return validArrs;
+    })
+        .catch((err) => {
+            throw err;
+        })
+
+}
+
+module.exports = { signUp, login, addImage, searchLabel };

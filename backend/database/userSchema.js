@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
         type: Array,
         required: [false, 'images is not required'],
         default: []
-    }
+    },
 })
 
 userSchema.plugin(uniqueValidator);

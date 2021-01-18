@@ -5,11 +5,6 @@ const singleUpload = s3.upload.single("image");
 
 const router = express.Router();
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 router.post('/login', async function (req, res, next) {
   await mongo.login(req.body.username, req.body.password)
     .then((value) => {
@@ -28,7 +23,7 @@ router.post('/signUp', async function (req, res, next) {
       res.send({ username: req.body.username, name: req.body.name, images: [] });
     })
     .catch((err) => {
-      console.log(err)
+      console.error(err)
       // we can end up in this catch block if values are not unique
       res.send(false);
     })
@@ -49,14 +44,26 @@ router.post('/upload', async function (req, res, next) {
     await mongo.addImage(req.body.username, req.file.location)
       .then((value) => {
         //send update images 
-        console.log("value ", value)
         res.send(value);
       })
       .catch((err) => {
-        throw err;
+        console.error(err)
+        res.send(false);
       })
 
   })
+});
+
+router.post('/search', async function (req, res, next) {
+  await mongo.searchLabel(req.body.username, req.body.characteristic)
+    .then(async (value) => {
+      //send back array of images matching given characteristic
+      res.send(value);
+    })
+    .catch((err) => {
+      console.error(err)
+      res.send([]);
+    })
 });
 
 module.exports = router;

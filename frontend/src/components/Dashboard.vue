@@ -1,16 +1,8 @@
 <template>
   <v-app id="dashboard">
     <v-app-bar app dark color="#96bf48">
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
       <v-toolbar-title>{{ nameOfUser }}'s Images</v-toolbar-title>
-
       <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
       <v-btn icon v-on:click="logout()">
         <v-icon>mdi-logout</v-icon>
       </v-btn>
@@ -47,13 +39,14 @@
               hide-details
               prepend-icon="mdi-magnify"
               single-line
+              v-model="characteristic"
             ></v-text-field>
           </v-toolbar>
         </v-card-text>
         <v-card-actions>
           <v-btn text @click="searchDialog = false"> Close </v-btn>
-          <v-btn text @click="searchDialog = false"> View all </v-btn>
-          <v-btn text @click="searchDialog = false"> Confirm</v-btn>
+          <v-btn text @click="viewAll()"> View all </v-btn>
+          <v-btn text @click="confirmSearch()"> Confirm</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -104,7 +97,12 @@
   </v-app>
 </template>
 <script>
-import { handleLogout, handleUpload } from "../scripts/dashboard.js";
+import {
+  handleLogout,
+  handleUpload,
+  handleSearch,
+  handleViewAll,
+} from "../scripts/dashboard.js";
 export default {
   name: "Dashboard",
   props: {
@@ -124,6 +122,9 @@ export default {
       reversedImages: this.images.slice().reverse(),
       uploadDialog: false,
       searchDialog: false,
+      characteristic: "",
+      charArr: [],
+      viewAllBool: true,
     };
   },
   methods: {
@@ -138,13 +139,29 @@ export default {
       const bindedUpload = handleUpload.bind(this);
       bindedUpload();
     },
+    confirmSearch() {
+      const bindedSearch = handleSearch.bind(this);
+      bindedSearch();
+    },
+    viewAll() {
+      const bindedViewAll = handleViewAll.bind(this);
+      bindedViewAll();
+    },
   },
   watch: {
     images: function (newVal) {
       this.reversedImages = newVal.slice().reverse();
       this.$forceUpdate();
     },
+    viewAllBool: function (newVal) {
+      newVal === true
+        ? (this.reversedImages = this.images.slice().reverse())
+        : (this.reversedImages = this.charArr.slice().reverse());
+
+      this.$forceUpdate();
+    },
   },
+
   mounted() {
     // check if user is authenticated before allowing access to dashboard
     if (this.nameOfUser === "") {

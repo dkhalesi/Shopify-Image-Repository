@@ -1,5 +1,5 @@
-# Shopify Image Repo
-Welcome to the Shopify Image Repository! You will easily be able to upload new pictures and search/filter them based on their characteristics (for example: winter, car, nature).
+# Image Repo
+Welcome to the Image Repository! You will easily be able to upload new pictures and search/filter them based on their characteristics (for example: winter, car, nature).
 
 ___
 ## Technology Stack
